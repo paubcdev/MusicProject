@@ -87,21 +87,26 @@ Persist the last opened file path (or recent files list) using Tauri's `fs` and 
 ## Architectural Notes
 
 ### State Management
-The current single-component approach in `App.tsx` works for the MVP. As features grow, consider:
-- Extract alphaTab logic into a custom hook (`useAlphaTab`)
-- Use React Context or a lightweight store (Zustand) for shared state
-- Split into components: `Toolbar`, `TrackSelector`, `TabViewport`, `ProgressBar`
+The current architecture separates concerns well:
+- **Go backend** (`app.go`) handles all file I/O, settings, and future app logic
+- **JS frontend** (`main.js`) is a thin alphaTab wrapper (~180 lines)
+
+As features grow, consider:
+- Adding new Go methods in `app.go` (Wails auto-generates JS bindings)
+- Keeping the JS layer as thin as possible — just UI rendering
+- Using Go structs for complex data passed to/from the frontend
 
 ### Testing
-- Add [Vitest](https://vitest.dev/) for unit tests
-- Test state logic (tempo calculation, track switching) independently from alphaTab
-- Use [Playwright](https://playwright.dev/) for E2E tests of the full Tauri app
+- Use Go's built-in `testing` package for backend unit tests (`go test ./...`)
+- Test settings persistence, recent files logic, file reading independently
+- Use [Playwright](https://playwright.dev/) for E2E tests of the full Wails app
 
 ### Performance
 - alphaTab renders can be heavy for large scores; consider lazy rendering or virtual scrolling for very long songs
 - The `optimizeDeps.exclude` for alphaTab in Vite config prevents bundler issues with its web worker
 
 ### Packaging & Distribution
-- Tauri builds platform-specific binaries: `.deb`/`.AppImage` (Linux), `.dmg` (macOS), `.msi` (Windows)
-- Consider auto-update via Tauri's updater plugin for distributing new versions
+- `wails build` produces a single native binary
+- Cross-compilation requires the target platform's GTK/WebKit libs
+- Consider auto-update via a simple version check endpoint
 - Code signing is needed for macOS/Windows distribution outside of dev

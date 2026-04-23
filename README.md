@@ -1,90 +1,178 @@
-# 🎸 TabPlayer# 🎸 TabPlayer# React + TypeScript + Vite
+# 🎸 TabPlayer# 🎸 TabPlayer# 🎸 TabPlayer# React + TypeScript + Vite
 
 
 
-A local, offline guitar tablature viewer and player — like Songsterr, but running entirely on your machine. Built with React, TypeScript, [alphaTab](https://www.alphatab.net/), and [Tauri](https://tauri.app/).
+A local, offline guitar tablature viewer and player — like Songsterr, but running entirely on your machine. Built with **Go** ([Wails](https://wails.io/)) for the backend and a minimal JavaScript frontend using [alphaTab](https://www.alphatab.net/).
 
 
 
-## FeaturesA local Songsterr-like guitar tablature viewer and player built with React, TypeScript, and [alphaTab](https://www.alphatab.net/).This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## FeaturesA local, offline guitar tablature viewer and player — like Songsterr, but running entirely on your machine. Built with React, TypeScript, [alphaTab](https://www.alphatab.net/), and [Tauri](https://tauri.app/).
 
 
 
 - **Load Guitar Pro files** — `.gp`, `.gp3`, `.gp4`, `.gp5`, `.gpx`, `.gp7`, `.musicxml`, `.mxl`, `.capx`
 
-- **Interactive tablature** — standard notation + tab rendered in-app with a synced playback cursor
+- **Native file dialog** — open files via the OS file picker (powered by Go)
 
-- **Built-in audio playback** — SoundFont-based synthesizer, no external software needed## FeaturesCurrently, two official plugins are available:
+- **Recent files** — quick access to previously opened songs (persisted to disk)## FeaturesA local Songsterr-like guitar tablature viewer and player built with React, TypeScript, and [alphaTab](https://www.alphatab.net/).This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+- **Interactive tablature** — standard notation + tab rendered with a synced playback cursor
+
+- **Built-in audio playback** — SoundFont-based synthesizer, no external software needed
 
 - **Track selection** — switch between guitar, bass, drums, keyboards, etc.
 
-- **Tempo control** — adjust playback speed from 25% to 200%
+- **Tempo control** — adjust playback speed from 25% to 200%- **Load Guitar Pro files** — `.gp`, `.gp3`, `.gp4`, `.gp5`, `.gpx`, `.gp7`, `.musicxml`, `.mxl`, `.capx`
 
 - **Loop mode** — repeat the entire song continuously
 
-- **Count-in** — metronome count before playback begins- **Load Guitar Pro files** — supports `.gp`, `.gp3`, `.gp4`, `.gp5`, `.gpx`, `.gp7`, `.musicxml`- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- **Count-in** — metronome count before playback begins- **Interactive tablature** — standard notation + tab rendered in-app with a synced playback cursor
 
 - **Drag & drop** — drop files directly onto the window to load them
 
-- **Desktop app** — runs as a native window via Tauri (also works in a browser)- **Interactive tablature rendering** — standard notation + tab, scrolling with playback cursor- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Keyboard shortcuts** — Space (play/pause), Esc (stop), L (loop), +/- (tempo)- **Built-in audio playback** — SoundFont-based synthesizer, no external software needed## FeaturesCurrently, two official plugins are available:
+
+- **Settings persistence** — tempo, loop, and count-in preferences saved automatically
+
+- **Track selection** — switch between guitar, bass, drums, keyboards, etc.
+
+## Prerequisites
+
+- **Tempo control** — adjust playback speed from 25% to 200%
+
+- [Go](https://go.dev/dl/) 1.21+
+
+- [Node.js](https://nodejs.org/) 18+- **Loop mode** — repeat the entire song continuously
+
+- [Wails CLI](https://wails.io/docs/gettingstarted/installation) — `go install github.com/wailsapp/wails/v2/cmd/wails@latest`
+
+- Linux: `libwebkit2gtk-4.1-dev`, `libgtk-3-dev`- **Count-in** — metronome count before playback begins- **Load Guitar Pro files** — supports `.gp`, `.gp3`, `.gp4`, `.gp5`, `.gpx`, `.gp7`, `.musicxml`- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
 
 
 
-## Prerequisites- **Audio playback** — built-in synthesizer with SoundFont, no server needed
+> **Ubuntu 24.04 note:** This distro ships `webkit2gtk-4.1` but Wails v2 expects `4.0`. A `.pkgconfig/` shim directory is included that maps 4.0 to 4.1. Set `PKG_CONFIG_PATH` before running:- **Drag & drop** — drop files directly onto the window to load them
+
+>
+
+> ```bash- **Desktop app** — runs as a native window via Tauri (also works in a browser)- **Interactive tablature rendering** — standard notation + tab, scrolling with playback cursor- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+> export PKG_CONFIG_PATH="$(pwd)/.pkgconfig:$PKG_CONFIG_PATH"
+
+> ```
 
 
 
-- [Node.js](https://nodejs.org/) (v18+)- **Track selection** — switch between guitar, bass, drums, etc.## React Compiler
-
-- [Rust](https://www.rust-lang.org/tools/install) (for Tauri desktop builds)
-
-- Linux: `libwebkit2gtk-4.1`, `libgtk-3` (usually pre-installed on modern distros)- **Tempo control** — adjust playback speed from 25% to 200%
+## Getting Started## Prerequisites- **Audio playback** — built-in synthesizer with SoundFont, no server needed
 
 
+
+```bash
+
+# Install Wails CLI (once)
+
+go install github.com/wailsapp/wails/v2/cmd/wails@latest- [Node.js](https://nodejs.org/) (v18+)- **Track selection** — switch between guitar, bass, drums, etc.## React Compiler
+
+
+
+# Run in dev mode (opens desktop window with hot reload)- [Rust](https://www.rust-lang.org/tools/install) (for Tauri desktop builds)
+
+export PKG_CONFIG_PATH="$(pwd)/.pkgconfig:$PKG_CONFIG_PATH"  # Ubuntu 24.04 only
+
+wails dev- Linux: `libwebkit2gtk-4.1`, `libgtk-3` (usually pre-installed on modern distros)- **Tempo control** — adjust playback speed from 25% to 200%
+
+```
+
+
+
+## Usage
 
 ## Getting Started- **Loop mode** — repeat the song continuouslyThe React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
+1. **Open a file** — Click "Open File" or drag and drop a Guitar Pro file onto the window
+
+2. **Play** — Press ▶ Play (or Space). The cursor follows along the tablature
+
+3. **Change track** — Use the Track dropdown to switch instruments
+
+4. **Adjust tempo** — Drag the slider or press +/- keys```bash- **Count-in** — metronome count before playback starts
+
+5. **Loop** — Click 🔁 Loop or press L
+
+6. **Recent files** — Click "Recent ▾" to reopen a previously loaded file# Install dependencies
 
 
-```bash- **Count-in** — metronome count before playback starts
 
-# Install dependencies
-
-npm install- **Drag & drop** — drop files directly into the app## Expanding the ESLint configuration
+## Building for Distributionnpm install- **Drag & drop** — drop files directly into the app## Expanding the ESLint configuration
 
 
 
-# Run in browser (dev mode)
+```bash
+
+export PKG_CONFIG_PATH="$(pwd)/.pkgconfig:$PKG_CONFIG_PATH"  # Ubuntu 24.04 only
+
+wails build# Run in browser (dev mode)
+
+```
 
 npm run dev
 
+Output binary will be in `build/bin/`.
+
 # Then open http://localhost:5173## Getting StartedIf you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-
-
-# Run as desktop app (dev mode)
-
-npm run tauri dev
-
-``````bash```js
+## Project Structure
 
 
 
-## Usagenpm installexport default defineConfig([
+```
 
+├── main.go               # Wails app entry point (Go)# Run as desktop app (dev mode)
 
+├── app.go                # App logic: file dialogs, settings, recent files (Go)
 
-1. **Open a file** — Click "Open File" in the toolbar or drag & drop a Guitar Pro file onto the window.npm run dev  globalIgnores(['dist']),
+├── frontend/             # Thin JS frontend (alphaTab only)npm run tauri dev
 
-2. **Play** — Press ▶ Play. The cursor follows along the tablature in real time.
+│   ├── index.html        # App shell
+
+│   ├── src/``````bash```js
+
+│   │   ├── main.js       # alphaTab init + UI event wiring (~180 lines)
+
+│   │   └── style.css     # Dark theme styles
+
+│   ├── wailsjs/          # Auto-generated Go-JS bindings
+
+│   ├── vite.config.js    # Vite config (static copy for fonts/soundfont)## Usagenpm installexport default defineConfig([
+
+│   └── package.json
+
+├── build/                # Wails build assets and icons
+
+├── .pkgconfig/           # pkg-config shim for Ubuntu 24.04
+
+├── wails.json            # Wails project config1. **Open a file** — Click "Open File" in the toolbar or drag & drop a Guitar Pro file onto the window.npm run dev  globalIgnores(['dist']),
+
+├── go.mod / go.sum       # Go dependencies
+
+└── docs/dev/             # Development documentation2. **Play** — Press ▶ Play. The cursor follows along the tablature in real time.
+
+```
 
 3. **Change track** — Use the Track dropdown to switch between instruments in the file.```  {
 
+## Architecture
+
 4. **Adjust tempo** — Drag the Tempo slider to slow down (for practice) or speed up.
 
-5. **Loop** — Toggle 🔁 Loop to repeat the song when it reaches the end.    files: ['**/*.{ts,tsx}'],
+| Layer | Language | Responsibility |
 
-6. **Count-in** — Toggle Count-In for a metronome lead-in before playback starts.
+|-------|----------|----------------|5. **Loop** — Toggle 🔁 Loop to repeat the song when it reaches the end.    files: ['**/*.{ts,tsx}'],
+
+| Backend | Go | File I/O, native dialogs, settings persistence, all future app logic |
+
+| Frontend | Vanilla JS | alphaTab rendering + playback only (~180 lines) |6. **Count-in** — Toggle Count-In for a metronome lead-in before playback starts.
+
+| Bridge | Wails bindings | Go functions callable from JS (auto-generated) |
 
 Then open http://localhost:5173 and drop a Guitar Pro file onto the page.    extends: [
 

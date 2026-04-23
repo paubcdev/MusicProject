@@ -1,0 +1,180 @@
+:root {
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-surface: #0f3460;
+  --text-primary: #e6e6e6;
+  --text-secondary: #a8a8b3;
+  --accent: #e94560;
+  --accent-hover: #ff6b81;
+  --border: #2a2a4a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.toolbar h1 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-right: auto;
+  color: var(--accent);
+}
+
+.toolbar button, .toolbar select {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s;
+}
+
+.toolbar button:hover { background: var(--accent); }
+.toolbar button.active { background: var(--accent); border-color: var(--accent); }
+
+.toolbar label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.toolbar input[type='range'] {
+  width: 100px;
+  accent-color: var(--accent);
+}
+
+#txt-tempo {
+  min-width: 48px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.separator { width: 1px; height: 24px; background: var(--border); }
+
+/* Dropdown menu */
+.dropdown-toggle { position: relative; }
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 0;
+  z-index: 100;
+  min-width: 250px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 6px 12px;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-menu a:hover { background: var(--bg-surface); }
+.dropdown-menu .empty { padding: 8px 12px; color: var(--text-secondary); font-size: 13px; }
+
+/* Drop zone */
+.drop-zone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: var(--text-secondary);
+  border: 2px dashed var(--border);
+  margin: 24px;
+  border-radius: 12px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.drop-zone.dragging {
+  border-color: var(--accent);
+  background: rgba(233, 69, 96, 0.05);
+}
+
+.drop-zone p { font-size: 18px; }
+.drop-zone .hint { font-size: 14px; }
+
+.drop-zone button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.drop-zone button:hover { background: var(--accent-hover); }
+
+/* AlphaTab viewport */
+.at-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.at-viewport {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+.progress-bar { height: 4px; background: var(--border); flex-shrink: 0; }
+.progress-bar-fill { height: 100%; background: var(--accent); transition: width 0.1s linear; }
+
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(26, 26, 46, 0.85);
+  z-index: 10;
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.hidden { display: none !important; }
