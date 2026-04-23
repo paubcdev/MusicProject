@@ -87,7 +87,7 @@ Output binary will be in `build/bin/`.
 ## Architecture
 
 | Layer | Language | Responsibility |
-|-------|----------|----------------|
+| ----- | -------- | -------------- |
 | Backend | Go | File I/O, native dialogs, settings persistence, all future app logic |
 | Frontend | Vanilla JS | alphaTab rendering and playback only (~180 lines) |
 | Bridge | Wails bindings | Go functions callable from JS (auto-generated) |
