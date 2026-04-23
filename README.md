@@ -1,93 +1,83 @@
 # 🎸 TabPlayer
 
-A local, offline guitar tablature viewer and player — like Songsterr, but running entirely on your machine.
-Built with **Go** ([Wails](https://wails.io/)) for the backend and a minimal JavaScript frontend using [alphaTab](https://www.alphatab.net/).
+**Practice guitar tabs offline, at your own pace.**
 
-## Features
+TabPlayer is a free, local desktop app for viewing and playing back Guitar Pro tablature files — no account, no internet, no ads. Load a file, hit play, and practice along with a synced cursor and built-in audio.
 
-- **Load Guitar Pro files** — `.gp`, `.gp3`, `.gp4`, `.gp5`, `.gpx`, `.gp7`, `.musicxml`, `.mxl`, `.capx`
-- **Native file dialog** — open files via the OS file picker (powered by Go)
-- **Recent files** — quick access to previously opened songs (persisted to disk)
-- **Interactive tablature** — standard notation + tab rendered with a synced playback cursor
-- **Built-in audio playback** — SoundFont-based synthesizer, no external software needed
-- **Track selection** — switch between guitar, bass, drums, keyboards, etc.
-- **Tempo control** — adjust playback speed from 25% to 200%
-- **Loop mode** — repeat the entire song continuously
-- **Count-in** — metronome count before playback begins
-- **Drag and drop** — drop files directly onto the window to load them
-- **Keyboard shortcuts** — Space (play/pause), Esc (stop), L (loop), +/- (tempo)
-- **Settings persistence** — tempo, loop, and count-in preferences saved automatically
+<!-- TODO: Add a screenshot or GIF here -->
+<!-- ![TabPlayer screenshot](docs/images/screenshot.png) -->
 
-## Prerequisites
+## Download
 
-- [Go](https://go.dev/dl/) 1.21+
-- [Node.js](https://nodejs.org/) 18+
-- [Wails CLI](https://wails.io/docs/gettingstarted/installation) — `go install github.com/wailsapp/wails/v2/cmd/wails@latest`
-- Linux: `libwebkit2gtk-4.1-dev`, `libgtk-3-dev`
+> **Pre-built binaries coming soon.** For now, see [Building from Source](CONTRIBUTING.md#building-from-source) to run the app.
 
-### Ubuntu 24.04 note
+<!--
+### Linux
+Download the latest `.AppImage` or `.deb` from [Releases](https://github.com/paubcdev/MusicProject/releases).
 
-This distro ships `webkit2gtk-4.1` but Wails v2 expects `4.0`.
-A `.pkgconfig/` shim directory is included that maps 4.0 to 4.1.
-Set `PKG_CONFIG_PATH` before running:
+### macOS / Windows
+Coming soon.
+-->
 
-```bash
-export PKG_CONFIG_PATH="$(pwd)/.pkgconfig:$PKG_CONFIG_PATH"
-```
+## What It Does
 
-## Getting Started
+- **Open Guitar Pro files** — supports `.gp`, `.gp3`, `.gp4`, `.gp5`, `.gpx`, `.gp7`, `.musicxml`, `.mxl`, and `.capx`
+- **Play back any tab** — built-in audio synthesizer, no external software needed
+- **Follow along** — synced cursor scrolls through the notation as it plays
+- **Switch instruments** — view and listen to guitar, bass, drums, or any track in the file
+- **Practice at any speed** — slow down to 25% or speed up to 200%
+- **Loop** — repeat the song to drill a section
+- **Count-in** — get a metronome lead-in before playback starts
+- **Drag and drop** — just drop a file onto the window
+- **Recent files** — quickly reopen songs you've practiced before
+- **Works offline** — everything runs locally on your machine
 
-```bash
-# Install Wails CLI (once)
-go install github.com/wailsapp/wails/v2/cmd/wails@latest
+## Keyboard Shortcuts
 
-# Run in dev mode (opens desktop window with hot reload)
-export PKG_CONFIG_PATH="$(pwd)/.pkgconfig:$PKG_CONFIG_PATH"  # Ubuntu 24.04 only
-wails dev
-```
+| Action | Shortcut |
+|--------|----------|
+| Play / Pause | `Space` |
+| Stop | `Escape` |
+| Toggle loop | `L` |
+| Tempo up (+5%) | `+` |
+| Tempo down (-5%) | `-` |
 
-## Usage
+## Supported File Formats
 
-1. **Open a file** — Click "Open File" or drag and drop a Guitar Pro file onto the window
-2. **Play** — Press Play (or Space). The cursor follows along the tablature
-3. **Change track** — Use the Track dropdown to switch instruments
-4. **Adjust tempo** — Drag the slider or press +/- keys
-5. **Loop** — Click Loop or press L
-6. **Recent files** — Click "Recent" to reopen a previously loaded file
+| Format | Extensions |
+|--------|------------|
+| Guitar Pro | `.gp`, `.gp3`, `.gp4`, `.gp5`, `.gpx`, `.gp7` |
+| MusicXML | `.musicxml`, `.mxl` |
+| Capella | `.capx` |
 
-## Building for Distribution
+Guitar Pro files are the most common format. You can find free tabs on sites like [Ultimate Guitar](https://www.ultimate-guitar.com/) (look for "Guitar Pro" downloads) or export from apps like [TuxGuitar](https://tuxguitar.com.ar/).
 
-```bash
-export PKG_CONFIG_PATH="$(pwd)/.pkgconfig:$PKG_CONFIG_PATH"  # Ubuntu 24.04 only
-wails build
-```
+## FAQ / Troubleshooting
 
-Output binary will be in `build/bin/`.
+**No sound when I press play?**
+The app loads a SoundFont file on first playback. Give it a few seconds. If sound still doesn't work, check your system audio output.
 
-## Project Structure
+**The app won't start on Ubuntu 24.04?**
+This is a known issue with `webkit2gtk` versions. See the [Ubuntu 24.04 workaround](CONTRIBUTING.md#ubuntu-2404-note) in the contributing guide.
 
-```text
-├── main.go               # Wails app entry point (Go)
-├── app.go                # App logic: file dialogs, settings, recent files (Go)
-├── frontend/             # Thin JS frontend (alphaTab only)
-│   ├── index.html        # App shell
-│   ├── src/
-│   │   ├── main.js       # alphaTab init + UI event wiring (~180 lines)
-│   │   └── style.css     # Dark theme styles
-│   ├── wailsjs/          # Auto-generated Go-JS bindings
-│   ├── vite.config.js    # Vite config (static copy for fonts/soundfont)
-│   └── package.json
-├── build/                # Wails build assets and icons
-├── .pkgconfig/           # pkg-config shim for Ubuntu 24.04
-├── wails.json            # Wails project config
-├── go.mod / go.sum       # Go dependencies
-└── docs/dev/             # Development documentation
-```
+**Can I use this on macOS or Windows?**
+The app is built with [Wails](https://wails.io/) which supports all three platforms. macOS and Windows builds are not yet provided as pre-built binaries, but you can [build from source](CONTRIBUTING.md#building-from-source).
 
-## Architecture
+**Where does it store my settings?**
+Settings (tempo, loop, count-in, recent files) are saved to `~/.config/tabplayer/settings.json`.
 
-| Layer | Language | Responsibility |
-| ----- | -------- | -------------- |
-| Backend | Go | File I/O, native dialogs, settings persistence, all future app logic |
-| Frontend | Vanilla JS | alphaTab rendering and playback only (~180 lines) |
-| Bridge | Wails bindings | Go functions callable from JS (auto-generated) |
+## Contributing
+
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, architecture overview, and how to build from source.
+
+For feature ideas and roadmap, see [docs/dev/roadmap.md](docs/dev/roadmap.md).
+
+## Acknowledgments
+
+- [alphaTab](https://www.alphatab.net/) — tablature parsing, rendering, and audio playback
+- [Wails](https://wails.io/) — Go desktop app framework
+- [Sonivox SoundFont](https://github.com/niclasr/SonivoxSF2) — instrument samples for audio playback
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
