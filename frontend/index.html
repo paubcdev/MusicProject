@@ -1,45 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background:#ffffff;">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
     <title>TabPlayer</title>
+    <style>html,body{background:#ffffff !important;}</style>
     <link rel="stylesheet" href="/src/style.css" />
 </head>
-<body>
+<body style="background:#ffffff;">
     <div id="app">
-        <!-- Toolbar -->
-        <div class="toolbar">
+        <!-- Toolbar — always on top -->
+        <header class="toolbar">
             <h1>🎸 TabPlayer</h1>
             <button id="btn-open">Open File</button>
             <button id="btn-recent" class="dropdown-toggle">Recent ▾</button>
-            <div id="recent-menu" class="dropdown-menu hidden"></div>
 
-            <div class="separator"></div>
+            <span class="separator"></span>
 
             <button id="btn-play" class="hidden">▶ Play</button>
             <button id="btn-stop" class="hidden">⏹ Stop</button>
 
-            <div class="separator"></div>
+            <span class="separator"></span>
 
             <button id="btn-countin" class="hidden">Count-In</button>
             <button id="btn-loop" class="hidden">🔁 Loop</button>
 
-            <div class="separator"></div>
+            <span class="separator"></span>
 
             <label id="lbl-track" class="hidden">
                 Track:
                 <select id="sel-track"></select>
             </label>
 
-            <div class="separator"></div>
+            <span class="separator"></span>
 
             <label id="lbl-tempo" class="hidden">
                 Tempo:
                 <input id="rng-tempo" type="range" min="25" max="200" value="100" />
                 <span id="txt-tempo">100%</span>
             </label>
-        </div>
+        </header>
+
+        <!-- Dropdown rendered outside toolbar to avoid stacking issues -->
+        <div id="recent-menu" class="dropdown-menu hidden"></div>
 
         <!-- Drop zone (shown when no file loaded) -->
         <div id="drop-zone" class="drop-zone">
@@ -48,7 +52,7 @@
             <button id="btn-browse">Browse Files</button>
         </div>
 
-        <!-- AlphaTab viewport (hidden until file loaded) -->
+        <!-- AlphaTab area (hidden until file loaded) -->
         <div id="at-wrap" class="at-wrap hidden">
             <div id="loading" class="loading-overlay hidden">Loading...</div>
             <div id="at-viewport" class="at-viewport"></div>

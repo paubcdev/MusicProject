@@ -28,6 +28,23 @@ let tracks = [];
 let isPlaying = false;
 let settings = { tempo: 100, looping: false, countIn: false };
 
+// ── Base64 to Uint8Array ──
+// Wails serializes Go []byte as a base64 string in JSON.
+// We must decode it before passing to alphaTab.
+function base64ToUint8Array(base64) {
+  if (!base64) return null;
+  // If it's already an array/Uint8Array (e.g. from drag-and-drop), return as-is
+  if (base64 instanceof Uint8Array) return base64;
+  if (Array.isArray(base64)) return new Uint8Array(base64);
+  // Decode base64 string
+  const binaryString = atob(base64);
+  const bytes = new Uint8Array(binaryString.length);
+  for (let i = 0; i < binaryString.length; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  return bytes;
+}
+
 // ── Initialize alphaTab ──
 function initAlphaTab() {
   const atSettings = new alphaTab.Settings();
@@ -66,8 +83,10 @@ function initAlphaTab() {
 
 // ── Load file data into alphaTab ──
 function loadFileData(data) {
-  if (!data || data.length === 0) return;
-  api.load(new Uint8Array(data));
+  if (!data) return;
+  const bytes = base64ToUint8Array(data);
+  if (!bytes || bytes.length === 0) return;
+  api.load(bytes);
 }
 
 // ── UI helpers ──
@@ -207,6 +226,18 @@ dropZone.addEventListener('drop', (e) => {
   dropZone.classList.remove('dragging');
   const file = e.dataTransfer.files[0];
   if (file) {
+    const reader = new FileReader();
+    reader.onload = (ev) => loadFileData(new Uint8Array(ev.target.result));
+    reader.readAsArrayBuffer(file);
+  }
+});
+
+// Also support drop on the whole window when a file is already loaded
+document.addEventListener('dragover', (e) => e.preventDefault());
+document.addEventListener('drop', (e) => {
+  e.preventDefault();
+  const file = e.dataTransfer.files[0];
+  if (file && api) {
     const reader = new FileReader();
     reader.onload = (ev) => loadFileData(new Uint8Array(ev.target.result));
     reader.readAsArrayBuffer(file);

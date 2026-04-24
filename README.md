@@ -28,14 +28,14 @@ Coming soon.
 - **Practice at any speed** — slow down to 25% or speed up to 200%
 - **Loop** — repeat the song to drill a section
 - **Count-in** — get a metronome lead-in before playback starts
-- **Drag and drop** — just drop a file onto the window
+- **Drag and drop** — drop a file onto the window at any time, even while another tab is loaded
 - **Recent files** — quickly reopen songs you've practiced before
 - **Works offline** — everything runs locally on your machine
 
 ## Keyboard Shortcuts
 
 | Action | Shortcut |
-|--------|----------|
+| ------ | -------- |
 | Play / Pause | `Space` |
 | Stop | `Escape` |
 | Toggle loop | `L` |
@@ -45,7 +45,7 @@ Coming soon.
 ## Supported File Formats
 
 | Format | Extensions |
-|--------|------------|
+| ------ | ---------- |
 | Guitar Pro | `.gp`, `.gp3`, `.gp4`, `.gp5`, `.gpx`, `.gp7` |
 | MusicXML | `.musicxml`, `.mxl` |
 | Capella | `.capx` |
@@ -56,6 +56,9 @@ Guitar Pro files are the most common format. You can find free tabs on sites lik
 
 **No sound when I press play?**
 The app loads a SoundFont file on first playback. Give it a few seconds. If sound still doesn't work, check your system audio output.
+
+**How do I open a file?**
+Click the "Open File" button in the toolbar to use your system's file picker, or drag and drop a file directly onto the window.
 
 **The app won't start on Ubuntu 24.04?**
 This is a known issue with `webkit2gtk` versions. See the [Ubuntu 24.04 workaround](CONTRIBUTING.md#ubuntu-2404-note) in the contributing guide.
@@ -71,6 +74,8 @@ Settings (tempo, loop, count-in, recent files) are saved to `~/.config/tabplayer
 Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, architecture overview, and how to build from source.
 
 For feature ideas and roadmap, see [docs/dev/roadmap.md](docs/dev/roadmap.md).
+
+See [docs/CHANGELOG.md](docs/CHANGELOG.md) for a full list of changes.
 
 ## Acknowledgments
 
